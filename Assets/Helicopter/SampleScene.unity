@@ -611,7 +611,7 @@ MonoBehaviour:
   jugador: {fileID: 1688016868}
   mensajeCanvas: {fileID: 2082088984}
   teclaCambioEscena: 102
-  nombreEscenaACambiar: FreeRide
+  nombreEscenaACambiar: Race
 --- !u!4 &998651432
 Transform:
   m_ObjectHideFlags: 0

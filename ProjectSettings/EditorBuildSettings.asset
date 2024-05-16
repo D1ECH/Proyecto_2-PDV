@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Helicopter/FreeRide.unity
     guid: 21c22d07d5089a54bae0d9c4c5a70573
+  - enabled: 1
+    path: Assets/Helicopter/Race.unity
+    guid: 76c9736ef2a34c5418d69b9a4ed0d370
   m_configObjects: {}

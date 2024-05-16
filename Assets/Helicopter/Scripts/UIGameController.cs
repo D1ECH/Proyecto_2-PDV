@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class UIGameController : MonoBehaviour
 {
     public Text EngineForceView;
-    public GameObject RestartButton;
     public GameObject InfoButton;
     public GameObject InfoPanel;
 
@@ -30,7 +29,6 @@ public class UIGameController : MonoBehaviour
     private void ShowInfoPanel(bool isShow)
     {
         EngineForceView.gameObject.SetActive(!isShow);
-        RestartButton.SetActive(!isShow);
         InfoButton.SetActive(!isShow);
         InfoPanel.SetActive(isShow);
     }
