@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Helicopter/SampleScene.unity
+    path: Assets/Helicopter/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Helicopter/FreeRide.unity
     guid: 21c22d07d5089a54bae0d9c4c5a70573
   - enabled: 1
-    path: Assets/Helicopter/Race.unity
+    path: Assets/Helicopter/Scenes/Race.unity
     guid: 76c9736ef2a34c5418d69b9a4ed0d370
+  - enabled: 1
+    path: Assets/Helicopter/Scenes/Laberinto.unity
+    guid: fcf37f02e933cfc4b988b44942ddbe86
   m_configObjects: {}

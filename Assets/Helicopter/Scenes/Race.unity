@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f11f23e8c6c749a9827a1fb44e34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
 --- !u!135 &50231
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -568,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f11f23e8c6c749a9827a1fb44e34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
 --- !u!135 &51948144
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2405,6 +2407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f11f23e8c6c749a9827a1fb44e34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
 --- !u!135 &272648582
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3528,6 +3531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f11f23e8c6c749a9827a1fb44e34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
 --- !u!135 &364643224
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6820,9 +6824,10 @@ GameObject:
   - component: {fileID: 786398103}
   - component: {fileID: 786398104}
   - component: {fileID: 786398105}
+  - component: {fileID: 786398106}
   m_Layer: 0
   m_Name: HelicopterModel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6980,6 +6985,28 @@ MonoBehaviour:
   turnTiltForcePercent: 1.5
   turnForcePercent: 1.3
   IsOnGround: 1
+--- !u!195 &786398106
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786398101}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &786630432
 GameObject:
   m_ObjectHideFlags: 0
@@ -7933,6 +7960,7 @@ GameObject:
   - component: {fileID: 959240204}
   - component: {fileID: 959240203}
   - component: {fileID: 959240202}
+  - component: {fileID: 959240206}
   m_Layer: 0
   m_Name: HelicopterModel (1)
   m_TagString: Untagged
@@ -7947,7 +7975,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959240201}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d85f6c4d4ecfa7f4fb4ee81cffb376e3, type: 3}
   m_Name: 
@@ -8024,7 +8052,7 @@ Transform:
   m_GameObject: {fileID: 959240201}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.6942189, z: 0, w: 0.71976393}
-  m_LocalPosition: {x: -7.98, y: 0.6539999, z: 0.042983152}
+  m_LocalPosition: {x: 10.18, y: 0.6539999, z: 0.042983152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8092,6 +8120,21 @@ Transform:
   - {fileID: 4890541}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &959240206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959240201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7755638326949d4c963846a52fd5df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjetoPerseguido: {fileID: 786398101}
+  RapidezHorizontal: 30
+  SeparacionConObjetivo: 20
 --- !u!1 &970027946
 GameObject:
   m_ObjectHideFlags: 0
@@ -8872,7 +8915,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EngineForceView: {fileID: 263799331}
-  RestartButton: {fileID: 0}
   InfoButton: {fileID: 1376245349}
   InfoPanel: {fileID: 1514195837}
 --- !u!114 &1083190399
@@ -9763,6 +9805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f11f23e8c6c749a9827a1fb44e34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
 --- !u!1 &1175278938 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 059e7d511f5f4a1498f289d6f83f53d5, type: 3}
@@ -9785,6 +9828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f11f23e8c6c749a9827a1fb44e34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
 --- !u!135 &1175278941
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10410,6 +10454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f11f23e8c6c749a9827a1fb44e34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
 --- !u!135 &1220222333
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11369,6 +11414,7 @@ MonoBehaviour:
   - {fileID: 1175278940}
   - {fileID: 50230}
   Arrow: {fileID: 1243056632}
+  nextSceneName: Laberinto
 --- !u!1 &1338922005
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class CheckpointController : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class CheckpointController : MonoBehaviour
 
     private Checkpoint CurrentCheckpoint;
     private int CheckpointId;
+    public string nextSceneName; // Nombre de la próxima escena a cargar al llegar al último punto de control
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
 	{
         if (CheckpointsList.Length==0) return;
 
@@ -44,14 +46,30 @@ public class CheckpointController : MonoBehaviour
             CurrentCheckpoint.gameObject.SetActive(false);
             CurrentCheckpoint.CheckpointActivated -= CheckpointActivated;
             Arrow.gameObject.SetActive(false);
+            StartCoroutine(LoadNextSceneWithFade()); // Inicia la corutina para cargar la próxima escena con un fundido
             return;
         }
 
         SetCurrentCheckpoint(CheckpointsList[CheckpointId]);
     }
 
-    // Update is called once per frame
-	void Update () {
+    IEnumerator LoadNextSceneWithFade()
+    {
+        // Espera unos segundos antes de cargar la próxima escena
+        yield return new WaitForSeconds(1);
+
+        // Desactiva la flecha
+        Arrow.gameObject.SetActive(false);
+
+        // Espera un breve periodo de tiempo para dar tiempo a que la pantalla se oscurezca
+        yield return new WaitForSeconds(3);
+
+        // Carga la próxima escena con un fundido
+        SceneManager.LoadScene(nextSceneName);
+    }
+
+// Update is called once per frame
+void Update () {
 	
 	}
 }
