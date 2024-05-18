@@ -20,6 +20,8 @@ public class playerController : MonoBehaviour
     Transform tramoAgarrado;
     bool agarrado;
     Vector3 offset;
+    float choque = 10;
+
     void Update()
     {
         // Verifica si el jugador está en el suelo
@@ -64,7 +66,7 @@ public class playerController : MonoBehaviour
             cc.transform.position = tramoAgarrado.position + offset;
             cc.transform.rotation = tramoAgarrado.rotation;
             
-            if(Input.GetKeyDown(KeyCode.G)) {
+            if(Input.GetKey (KeyCode.G)) {
                 soltarse();
             }
         }
@@ -77,15 +79,14 @@ public class playerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKey(KeyCode.F))
         {
             //1. Que se mueva y rote con la cuerda
             tramoAgarrado = other.transform;
             agarrado = true;
             //2. Suspender la gravedad
-            
-            //3. Impulso
 
+            //3. Impulso
         }
     }
 }
