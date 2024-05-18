@@ -17,6 +17,9 @@ public class playerController : MonoBehaviour
     public LayerMask floorMask;         // Máscara de capa para la detección de suelo
     bool isGrounded;                    // Variable booleana que indica si el jugador está en el suelo
 
+    Transform tramoAgarrado;
+    bool agarrado;
+    Vector3 offset;
     void Update()
     {
         // Verifica si el jugador está en el suelo
@@ -34,7 +37,7 @@ public class playerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             // Calcula la velocidad en y necesaria para realizar un salto
-            velocity.y = Mathf.Sqrt(6 * -2 * Gravedad);
+            velocity.y = Mathf.Sqrt(3 * -1 * Gravedad);
         }
 
         
@@ -53,5 +56,36 @@ public class playerController : MonoBehaviour
 
         // Mueve al jugador según la velocidad en y
         cc.Move(velocity * Time.deltaTime);
+
+
+        if (agarrado)
+        {
+            //Posicionar y rotar igual al tramo
+            cc.transform.position = tramoAgarrado.position + offset;
+            cc.transform.rotation = tramoAgarrado.rotation;
+            
+            if(Input.GetKeyDown(KeyCode.G)) {
+                soltarse();
+            }
+        }
+    }
+
+    private void soltarse()
+    {
+        agarrado = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //1. Que se mueva y rote con la cuerda
+            tramoAgarrado = other.transform;
+            agarrado = true;
+            //2. Suspender la gravedad
+            
+            //3. Impulso
+
+        }
     }
 }

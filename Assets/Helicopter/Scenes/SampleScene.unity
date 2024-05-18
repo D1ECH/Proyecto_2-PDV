@@ -5030,8 +5030,8 @@ Transform:
   m_GameObject: {fileID: 1158903111}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5195375, y: -0.47966734, z: 0.47966743, w: 0.51953745}
-  m_LocalPosition: {x: -1.22, y: 0.19, z: 0.1}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: -1.22, y: 0.01, z: 0.1}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 604013941}
@@ -5201,7 +5201,6 @@ GameObject:
   - component: {fileID: 1274277849}
   - component: {fileID: 1274277848}
   - component: {fileID: 1274277847}
-  - component: {fileID: 1274277845}
   - component: {fileID: 1274277850}
   m_Layer: 0
   m_Name: HelicopterModel
@@ -5210,28 +5209,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!195 &1274277845
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274277844}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!136 &1274277847
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5278,7 +5255,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -5291,8 +5268,8 @@ Transform:
   m_GameObject: {fileID: 1274277844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.6942189, z: 0, w: 0.71976393}
-  m_LocalPosition: {x: -1.1892234, y: 0.6539999, z: 0.042983152}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.1892234, y: 0.8, z: 0.042983152}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 440199449}
@@ -6489,7 +6466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cc: {fileID: 1669082760}
   Velocidad: 5
-  Gravedad: -150
+  Gravedad: -300
   velocity: {x: 0, y: 0, z: 0}
   groundCheck: {fileID: 246305799}
   groundDistance: 0.4

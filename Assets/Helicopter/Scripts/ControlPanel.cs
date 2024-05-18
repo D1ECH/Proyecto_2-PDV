@@ -15,10 +15,6 @@ public class ControlPanel : MonoBehaviour {
     KeyCode Left = KeyCode.A;
     [SerializeField]
     KeyCode Right = KeyCode.D;
-    [SerializeField]
-    KeyCode TurnLeft = KeyCode.Q;
-    [SerializeField]
-    KeyCode TurnRight = KeyCode.E;
 
     private KeyCode[] keyCodes;
 
@@ -32,8 +28,6 @@ public class ControlPanel : MonoBehaviour {
                             Back,
                             Left,
                             Right,
-                            TurnLeft,
-                            TurnRight
                         };
 
     }
