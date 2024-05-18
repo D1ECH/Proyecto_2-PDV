@@ -22,52 +22,59 @@ public class playerController : MonoBehaviour
     Vector3 offset;
     float choque = 10;
 
+    private bool stop = false;
+
     void Update()
     {
-        // Verifica si el jugador está en el suelo
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, floorMask);
-
-        
-        // Si el jugador está en el suelo y la velocidad en y es menor que 0
-        if (isGrounded && velocity.y < 0)
+        // Si las teclas de movimiento deben detenerse, no procesar más las entradas del jugador
+        if (!stop)
         {
-            // Resetea la velocidad en y a un valor pequeño para evitar que se hunda en el suelo
-            velocity.y = -2f;
-        }
-
-        // Si se presiona el botón de salto y el jugador está en el suelo
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            // Calcula la velocidad en y necesaria para realizar un salto
-            velocity.y = Mathf.Sqrt(3 * -1 * Gravedad);
-        }
-
-        
-        // Obtiene los valores de entrada horizontal y vertical para el movimiento
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        // Calcula el vector de movimiento en función de la entrada del jugador y la dirección del objeto
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        // Mueve al jugador según el vector de movimiento y la velocidad del jugador
-        cc.Move(move * Velocidad * Time.deltaTime);
-
-        // Aplica la gravedad al jugador
-        velocity.y += Gravedad * Time.deltaTime;
-
-        // Mueve al jugador según la velocidad en y
-        cc.Move(velocity * Time.deltaTime);
+            // Verifica si el jugador está en el suelo
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, floorMask);
 
 
-        if (agarrado)
-        {
-            //Posicionar y rotar igual al tramo
-            cc.transform.position = tramoAgarrado.position + offset;
-            cc.transform.rotation = tramoAgarrado.rotation;
-            
-            if(Input.GetKey (KeyCode.G)) {
-                soltarse();
+            // Si el jugador está en el suelo y la velocidad en y es menor que 0
+            if (isGrounded && velocity.y < 0)
+            {
+                // Resetea la velocidad en y a un valor pequeño para evitar que se hunda en el suelo
+                velocity.y = -2f;
+            }
+
+            // Si se presiona el botón de salto y el jugador está en el suelo
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                // Calcula la velocidad en y necesaria para realizar un salto
+                velocity.y = Mathf.Sqrt(3 * -1 * Gravedad);
+            }
+
+
+            // Obtiene los valores de entrada horizontal y vertical para el movimiento
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+
+            // Calcula el vector de movimiento en función de la entrada del jugador y la dirección del objeto
+            Vector3 move = transform.right * x + transform.forward * z;
+
+            // Mueve al jugador según el vector de movimiento y la velocidad del jugador
+            cc.Move(move * Velocidad * Time.deltaTime);
+
+            // Aplica la gravedad al jugador
+            velocity.y += Gravedad * Time.deltaTime;
+
+            // Mueve al jugador según la velocidad en y
+            cc.Move(velocity * Time.deltaTime);
+
+
+            if (agarrado)
+            {
+                //Posicionar y rotar igual al tramo
+                cc.transform.position = tramoAgarrado.position + offset;
+                cc.transform.rotation = tramoAgarrado.rotation;
+
+                if (Input.GetKey(KeyCode.G))
+                {
+                    soltarse();
+                }
             }
         }
     }
@@ -89,4 +96,11 @@ public class playerController : MonoBehaviour
             //3. Impulso
         }
     }
+
+    // Método para activar o desactivar la detención de las teclas de movimiento
+    public void SetStop(bool value)
+    {
+        stop = value;
+    }
+
 }

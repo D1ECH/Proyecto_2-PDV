@@ -17,24 +17,30 @@ public class NPC1Conversacion : MonoBehaviour
     public TMP_InputField inputField;
     public TMP_Text chatText;
 
+    private bool conversacion = true;
+
     void Start()
     {
         inputField.text = "Presiona K para escribir";
         // AQUI VA LA API
         StartConversation();
+        jugador.GetComponent<playerController>().SetStop(true);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if(conversacion)
         {
-            inputField.interactable = true; // Activa la interacción con el campo de entrada
-            inputField.Select(); // Selecciona el campo de texto para escribir directamente
-        }
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            EnviarMensaje();
-            // GetResponse();
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                inputField.interactable = true; // Activa la interacción con el campo de entrada
+                inputField.Select(); // Selecciona el campo de texto para escribir directamente
+            }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                EnviarMensaje();
+                // GetResponse();
+            }
         }
     }
 
@@ -90,18 +96,23 @@ public class NPC1Conversacion : MonoBehaviour
         // UpdateChatUI(messages);
         UpdateChatUI(messages[messages.Count - 1]);
 
-        if (responseMessage.TextContent.Contains("Puedes montarte")) // Si el NPC dice "sí podemos"
+        if (responseMessage.TextContent.ToLower().Contains("puedes montarte"))
         {
             permiso = true;
             inputField.gameObject.SetActive(false); // Oculta el campo de entrada
             chatText.gameObject.SetActive(false); // Oculta el texto del chat
+            jugador.GetComponent<playerController>().SetStop(false);
+            conversacion = false;
         }
-        else if (responseMessage.TextContent.Contains("No puedes montarte"))
+        else if (responseMessage.TextContent.ToLower().Contains("no puedes montarte"))
         {
             permiso = false;
             inputField.gameObject.SetActive(false); // Oculta el campo de entrada
             chatText.gameObject.SetActive(false); // Oculta el texto del chat
+            jugador.GetComponent<playerController>().SetStop(false);
+            conversacion = false;
         }
+
 
     }
     /*
