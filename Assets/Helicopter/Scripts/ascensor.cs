@@ -1,15 +1,22 @@
 using System.Collections;
 using UnityEngine;
 
-public class Elevator : MonoBehaviour
+public class ascensor : MonoBehaviour
 {
     public GameObject targetObject;  // El objeto que debe estar sobre el plano para activar el ascensor
     public float targetHeight = 10f; // La altura a la que debe llegar el ascensor
     public float speed = 2f;         // La velocidad a la que se eleva el ascensor
     public float delayTime = 2f;     // Tiempo de espera antes de que la plataforma comience a elevarse
+    public float waitAtTopTime = 2f; // Tiempo de espera en la posición superior antes de bajar
 
     private bool isActivated = false;  // Indica si el ascensor está activado
     private bool isDelaying = false;   // Indica si el ascensor está en el periodo de espera
+    private Vector3 originalPosition;  // Posición original del ascensor
+
+    void Start()
+    {
+        originalPosition = transform.position;
+    }
 
     void Update()
     {
@@ -23,6 +30,16 @@ public class Elevator : MonoBehaviour
         if (isActivated && transform.position.y < targetHeight)
         {
             transform.position += Vector3.up * speed * Time.deltaTime;
+            if (transform.position.y >= targetHeight)
+            {
+                StartCoroutine(WaitAtTopAndReturn());
+            }
+        }
+
+        // Si el ascensor ha sido activado y está volviendo a la posición original
+        if (!isActivated && transform.position.y > originalPosition.y)
+        {
+            transform.position -= Vector3.up * speed * Time.deltaTime;
         }
     }
 
@@ -32,6 +49,12 @@ public class Elevator : MonoBehaviour
         yield return new WaitForSeconds(delayTime);  // Esperar el tiempo especificado
         isActivated = true;  // Activar el ascensor después de la espera
         isDelaying = false;  // Salir del periodo de espera
+    }
+
+    private IEnumerator WaitAtTopAndReturn()
+    {
+        yield return new WaitForSeconds(waitAtTopTime);  // Esperar en la posición superior
+        isActivated = false;  // Desactivar el ascensor para que vuelva a la posición original
     }
 
     private bool IsTargetObjectOnElevator()

@@ -1,15 +1,17 @@
+using System;
 using UnityEngine;
 
-public class RopeSwing : MonoBehaviour
+public class Soga : MonoBehaviour
 {
-    public float swingForce = 10f;   // Fuerza de balanceo
-    public KeyCode grabKey = KeyCode.F;  // Tecla para agarrar la soga
+    public float swingForce = 10f; // Fuerza de balanceo
+    public KeyCode grabKey = KeyCode.F; // Tecla para agarrar la soga
     public KeyCode releaseKey = KeyCode.G; // Tecla para soltarse
-    public Transform handTransform;  // Transform del punto donde el personaje se agarra
+    public KeyCode jumpKey = KeyCode.Space; // Tecla para saltar desde la soga
 
     private Rigidbody rb;
-    private HingeJoint hingeJoint;
     private bool isSwinging;
+    private HingeJoint hingeJoint;
+    private Rigidbody connectedRopeSegment;
 
     void Start()
     {
@@ -18,13 +20,13 @@ public class RopeSwing : MonoBehaviour
 
     void Update()
     {
-        if (isSwinging && Input.GetKeyDown(releaseKey))
-        {
-            Release();
-        }
-
         if (isSwinging)
         {
+            if (Input.GetKeyDown(releaseKey) || Input.GetKeyDown(jumpKey))
+            {
+                Release();
+            }
+
             ApplySwingForce();
         }
     }
@@ -39,19 +41,40 @@ public class RopeSwing : MonoBehaviour
 
     private void Grab(Rigidbody ropeSegment)
     {
+        Debug.Log("Trying to grab the rope");
+
         hingeJoint = gameObject.AddComponent<HingeJoint>();
         hingeJoint.connectedBody = ropeSegment;
-        hingeJoint.anchor = handTransform.localPosition;
+        hingeJoint.anchor = Vector3.zero; // Ajusta según sea necesario
         hingeJoint.autoConfigureConnectedAnchor = false;
-        hingeJoint.connectedAnchor = ropeSegment.transform.InverseTransformPoint(handTransform.position);
+        hingeJoint.connectedAnchor = ropeSegment.transform.InverseTransformPoint(transform.position);
 
+        connectedRopeSegment = ropeSegment;
         isSwinging = true;
+        rb.useGravity = false;
+
+        Debug.Log("Grabbed the rope successfully");
     }
 
     private void Release()
     {
-        Destroy(hingeJoint);
+        Debug.Log("Releasing the rope");
+
+        if (hingeJoint != null)
+        {
+            Destroy(hingeJoint);
+        }
+
         isSwinging = false;
+        rb.useGravity = true;
+
+        // Añadir un pequeño impulso al saltar
+        if (Input.GetKeyDown(jumpKey))
+        {
+            rb.AddForce(Vector3.up * swingForce, ForceMode.Impulse);
+        }
+
+        Debug.Log("Released the rope successfully");
     }
 
     private void ApplySwingForce()
@@ -66,4 +89,3 @@ public class RopeSwing : MonoBehaviour
         }
     }
 }
-

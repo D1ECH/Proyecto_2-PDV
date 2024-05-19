@@ -1,55 +1,42 @@
 using UnityEngine;
 
-public class PlatformHingeController : MonoBehaviour
+public class puente_roto : MonoBehaviour
 {
-    public HingeJoint[] hingeJoints;  // Array de HingeJoints a controlar
-    public GameObject player;         // Referencia al jugador
-    public Transform platform;        // Plataforma que detectará al jugador
-    public float detectionRadius = 1f; // Radio de detección del jugador
-    public float newBreakForce = 500f; // Nueva fuerza de ruptura cuando el jugador esté encima
-    private float originalBreakForce;  // Para almacenar la fuerza de ruptura original
+    public GameObject cylinder1HingeJoint; // Referencia al primer HingeJoint del cilindro
+    public GameObject cylinder2HingeJoint; // Referencia al segundo HingeJoint del cilindro
+    public float newBreakForce = 50f; // Nueva fuerza de rotura cuando el jugador está en la plataforma
+    public float defaultBreakForce = Mathf.Infinity; // Fuerza de rotura predeterminada
+
+    private bool playerOnPlatform = false;
 
     void Start()
     {
-        // Inicializar la fuerza de ruptura original como infinita
-        foreach (var hingeJoint in hingeJoints)
+        // Asegúrate de que los HingeJoint tengan la fuerza de rotura predeterminada
+        cylinder1HingeJoint.GetComponent<HingeJoint>().breakForce = defaultBreakForce;
+        cylinder2HingeJoint.GetComponent<HingeJoint>().breakForce = defaultBreakForce;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-            originalBreakForce = hingeJoint.breakForce;
-            hingeJoint.breakForce = Mathf.Infinity;
+            playerOnPlatform = true;
+            ModifyBreakForce(newBreakForce);
         }
     }
 
-    void Update()
+    void OnTriggerExit(Collider other)
     {
-        // Verificar si el jugador está sobre la plataforma
-        if (IsPlayerOnPlatform())
+        if (other.CompareTag("Player"))
         {
-            SetHingeJointBreakForce(newBreakForce);  // Reducir la fuerza de ruptura
-        }
-        else
-        {
-            SetHingeJointBreakForce(Mathf.Infinity);  // Restaurar la fuerza de ruptura
+            playerOnPlatform = false;
+            ModifyBreakForce(defaultBreakForce);
         }
     }
 
-    private bool IsPlayerOnPlatform()
+    void ModifyBreakForce(float breakForce)
     {
-        // Verificar si el jugador está dentro del radio de detección
-        return Vector3.Distance(player.transform.position, platform.position) <= detectionRadius;
-    }
-
-    private void SetHingeJointBreakForce(float breakForce)
-    {
-        foreach (var hingeJoint in hingeJoints)
-        {
-            hingeJoint.breakForce = breakForce;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        // Dibujar un gizmo para visualizar el radio de detección en la escena
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(platform.position, detectionRadius);
+        cylinder1HingeJoint.GetComponent<HingeJoint>().breakForce = breakForce;
+        cylinder2HingeJoint.GetComponent<HingeJoint>().breakForce = breakForce;
     }
 }
