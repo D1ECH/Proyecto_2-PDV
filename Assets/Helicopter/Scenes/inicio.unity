@@ -655,7 +655,7 @@ Transform:
   m_GameObject: {fileID: 96882882}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: 0.13000011, z: 0}
+  m_LocalPosition: {x: 2.77, y: 0.13000011, z: 2.82}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -691,8 +691,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabLadrillo: {fileID: 1849899189272718956, guid: f0d2b3932418fb94183812dd78adcfe8, type: 3}
   helicoptero: {fileID: 1274277844}
-  filas: 2
-  radio: 10
   alturaLadrillo: 0
   anchoLadrillo: 0
 --- !u!1 &128962205
@@ -6953,6 +6951,11 @@ MonoBehaviour:
   floorMask:
     serializedVersion: 2
     m_Bits: 16
+  esferaPrefab: {fileID: 8370714346095116798, guid: 6ebb2be724b39dc47aa7c3e37cce12f3, type: 3}
+  fuerzaMinima: 10
+  fuerzaMaxima: 30
+  fuerzaPorSegundo: 20
+  teclaLanzar: 13
 --- !u!65 &1669082762
 BoxCollider:
   m_ObjectHideFlags: 0

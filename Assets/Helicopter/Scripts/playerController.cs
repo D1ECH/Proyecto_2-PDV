@@ -24,6 +24,13 @@ public class playerController : MonoBehaviour
 
     private bool stop = false;
 
+    public GameObject esferaPrefab; // Prefab de la esfera
+    public float fuerzaMinima = 10f; // Fuerza mínima para lanzar la esfera
+    public float fuerzaMaxima = 100f; // Fuerza máxima para lanzar la esfera
+    public float fuerzaPorSegundo = 10f; // Incremento de fuerza por segundo mientras se mantiene presionada la tecla
+    public KeyCode teclaLanzar = KeyCode.Return; // Tecla para lanzar la esfera
+
+
     void Update()
     {
         // Si las teclas de movimiento deben detenerse, no procesar más las entradas del jugador
@@ -45,6 +52,11 @@ public class playerController : MonoBehaviour
             {
                 // Calcula la velocidad en y necesaria para realizar un salto
                 velocity.y = Mathf.Sqrt(3 * -1 * Gravedad);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                StartCoroutine(LanzarEsfera());
             }
 
 
@@ -103,4 +115,33 @@ public class playerController : MonoBehaviour
         stop = value;
     }
 
+    
+    IEnumerator LanzarEsfera()
+    {
+        // Calcular la fuerza inicial
+        float fuerza = fuerzaMinima;
+
+        // Mientras se mantiene presionada la tecla de lanzar
+        while (Input.GetKey(teclaLanzar))
+        {
+            // Aumentar la fuerza gradualmente
+            if (fuerza < fuerzaMaxima)
+            {
+                fuerza += fuerzaPorSegundo * Time.deltaTime;
+            }
+
+            yield return null;
+        }
+
+        // Instanciar la esfera y aplicarle una fuerza
+        GameObject esfera = Instantiate(esferaPrefab, transform.position + transform.forward, Quaternion.identity);
+        Rigidbody rb = esfera.GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * fuerza, ForceMode.Impulse);
+
+        // Esperar 5 segundos antes de destruir la esfera
+        yield return new WaitForSeconds(5f);
+
+        // Destruir la esfera después de 5 segundos
+        Destroy(esfera);
+    }
 }
