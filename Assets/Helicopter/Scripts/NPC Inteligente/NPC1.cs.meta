@@ -3,7 +3,8 @@ guid: c0344c9966c079041b5add1140cd4c5c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - prefabLadrillo: {fileID: 1849899189272718956, guid: f0d2b3932418fb94183812dd78adcfe8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

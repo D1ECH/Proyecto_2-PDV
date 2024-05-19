@@ -11,7 +11,7 @@ public class NPC1Conversacion : MonoBehaviour
     private List<ChatMessage> messages;
     public GameObject jugador;
     // private bool dialogoSoloConHumano = true;
-    public bool permiso = false;
+    public bool permiso = true;
 
     // Referencias a los campos de texto en la interfaz de usuario
     public TMP_InputField inputField;
@@ -52,8 +52,7 @@ public class NPC1Conversacion : MonoBehaviour
             "Tu nombre es GUARDIAN. Eres un guardia de seguridad que protege el acceso a un helicóptero. " +
             "Debes proponer un acertijo" +
             "El jugador necesita acertar el acertijo para poder subir al helicóptero" + 
-            "Tendrá 3 oportunidades" + 
-            "Si finalmente le permites pasar, mandarás el siguiente mensaje 'Puedes montarte', sino le permites pasar, mandarás el siguiente mensaje 'No puedes montarte'")
+            "Tendrá 3 oportunidades, si lo consigue en el mensaje debe aparecer 'Puedes montarte',si no lo consigue, en el mensaje debe aparecer 'No puedes montarte'")
         };
     }
 
@@ -96,17 +95,17 @@ public class NPC1Conversacion : MonoBehaviour
         // UpdateChatUI(messages);
         UpdateChatUI(messages[messages.Count - 1]);
 
-        if (responseMessage.TextContent.ToLower().Contains("puedes montarte"))
+        if (responseMessage.TextContent.ToLower().Contains("no puedes montarte"))
         {
-            permiso = true;
+            permiso = false;
             inputField.gameObject.SetActive(false); // Oculta el campo de entrada
             chatText.gameObject.SetActive(false); // Oculta el texto del chat
             jugador.GetComponent<playerController>().SetStop(false);
             conversacion = false;
         }
-        else if (responseMessage.TextContent.ToLower().Contains("no puedes montarte"))
+        else if (responseMessage.TextContent.ToLower().Contains("puedes montarte"))
         {
-            permiso = false;
+            permiso = true;
             inputField.gameObject.SetActive(false); // Oculta el campo de entrada
             chatText.gameObject.SetActive(false); // Oculta el texto del chat
             jugador.GetComponent<playerController>().SetStop(false);
@@ -188,4 +187,6 @@ public class NPC1Conversacion : MonoBehaviour
         }
         */
     }
+
+    public bool Conversando() { return conversacion; }
 }

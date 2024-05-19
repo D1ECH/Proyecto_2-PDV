@@ -689,10 +689,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0344c9966c079041b5add1140cd4c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1669082759}
-  helicopter: {fileID: 1274277844}
-  pushForce: 10
-  detectionRadius: 5
+  prefabLadrillo: {fileID: 1849899189272718956, guid: f0d2b3932418fb94183812dd78adcfe8, type: 3}
+  helicoptero: {fileID: 1274277844}
+  filas: 2
+  radio: 10
+  alturaLadrillo: 0
+  anchoLadrillo: 0
 --- !u!1 &128962205
 GameObject:
   m_ObjectHideFlags: 0
