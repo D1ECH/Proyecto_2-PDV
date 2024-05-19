@@ -1,26 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class soga : MonoBehaviour
+public class RopeSwing : MonoBehaviour
 {
-    public Vector3 fuerzaPrueba;
-    // Start is called before the first frame update
+    public float swingForce = 10f;   // Fuerza de balanceo
+    public KeyCode grabKey = KeyCode.F;  // Tecla para agarrar la soga
+    public KeyCode releaseKey = KeyCode.G; // Tecla para soltarse
+    public Transform handTransform;  // Transform del punto donde el personaje se agarra
+
+    private Rigidbody rb;
+    private HingeJoint hingeJoint;
+    private bool isSwinging;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P)) { 
-            transform.GetChild(transform.childCount-1).GetComponent<Rigidbody>().AddForce(fuerzaPrueba, ForceMode.Impulse);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.O))
+        if (isSwinging && Input.GetKeyDown(releaseKey))
         {
-            transform.GetChild(transform.childCount / 2).GetComponent<Rigidbody>().AddForce(fuerzaPrueba, ForceMode.Impulse);
+            Release();
+        }
+
+        if (isSwinging)
+        {
+            ApplySwingForce();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(grabKey) && other.CompareTag("rope"))
+        {
+            Grab(other.GetComponent<Rigidbody>());
+        }
+    }
+
+    private void Grab(Rigidbody ropeSegment)
+    {
+        hingeJoint = gameObject.AddComponent<HingeJoint>();
+        hingeJoint.connectedBody = ropeSegment;
+        hingeJoint.anchor = handTransform.localPosition;
+        hingeJoint.autoConfigureConnectedAnchor = false;
+        hingeJoint.connectedAnchor = ropeSegment.transform.InverseTransformPoint(handTransform.position);
+
+        isSwinging = true;
+    }
+
+    private void Release()
+    {
+        Destroy(hingeJoint);
+        isSwinging = false;
+    }
+
+    private void ApplySwingForce()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            rb.AddForce(Vector3.left * swingForce);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            rb.AddForce(Vector3.right * swingForce);
         }
     }
 }
+
