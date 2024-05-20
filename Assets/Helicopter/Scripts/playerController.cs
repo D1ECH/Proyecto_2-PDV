@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour
     Transform tramoAgarrado;
     bool agarrado;
     Vector3 offset;
-    float choque = 10;
+    //float choque = 10;
 
     private bool stop = false;
 

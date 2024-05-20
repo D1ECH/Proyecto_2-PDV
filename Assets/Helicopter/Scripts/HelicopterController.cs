@@ -40,14 +40,15 @@ public class HelicopterController : MonoBehaviour
     public bool IsOnGround = true;
 
     // Use this for initialization
-	void Start ()
-	{
+    void Start()
+    {
         ControlPanel.KeyPressed += OnKeyPressed;
-	}
+    }
 
-	void Update () {
-	}
-  
+    void Update()
+    {
+    }
+
     void FixedUpdate()
     {
         LiftProcess();
@@ -84,17 +85,17 @@ public class HelicopterController : MonoBehaviour
 
         // stable forward
         if (hMove.y > 0)
-            tempY = - Time.fixedDeltaTime;
+            tempY = -Time.fixedDeltaTime;
         else
             if (hMove.y < 0)
-                tempY = Time.fixedDeltaTime;
+            tempY = Time.fixedDeltaTime;
 
         // stable lurn
         if (hMove.x > 0)
             tempX = -Time.fixedDeltaTime;
         else
             if (hMove.x < 0)
-                tempX = Time.fixedDeltaTime;
+            tempX = Time.fixedDeltaTime;
 
 
         foreach (var pressedKeyCode in obj)
@@ -134,7 +135,7 @@ public class HelicopterController : MonoBehaviour
                 case PressedKeyCode.TurnRightPressed:
                     {
                         if (IsOnGround) break;
-                        var force = (turnForcePercent - Mathf.Abs(hMove.y))*HelicopterModel.mass;
+                        var force = (turnForcePercent - Mathf.Abs(hMove.y)) * HelicopterModel.mass;
                         HelicopterModel.AddRelativeTorque(0f, force, 0);
                     }
                     break;
@@ -142,8 +143,8 @@ public class HelicopterController : MonoBehaviour
                 case PressedKeyCode.TurnLeftPressed:
                     {
                         if (IsOnGround) break;
-                        
-                        var force = -(turnForcePercent - Mathf.Abs(hMove.y))*HelicopterModel.mass;
+
+                        var force = -(turnForcePercent - Mathf.Abs(hMove.y)) * HelicopterModel.mass;
                         HelicopterModel.AddRelativeTorque(0f, force, 0);
                     }
                     break;

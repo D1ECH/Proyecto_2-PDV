@@ -42,6 +42,7 @@ public class UIGameController : MonoBehaviour
         ShowInfoPanel(false);
     }
 
+    [System.Obsolete]
     public void RestartGame()
     {
         Application.LoadLevel("Main");

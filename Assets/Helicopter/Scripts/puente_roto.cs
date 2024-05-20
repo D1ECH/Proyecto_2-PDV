@@ -7,7 +7,7 @@ public class puente_roto : MonoBehaviour
     public float newBreakForce = 50f; // Nueva fuerza de rotura cuando el jugador está en la plataforma
     public float defaultBreakForce = Mathf.Infinity; // Fuerza de rotura predeterminada
 
-    private bool playerOnPlatform = false;
+    //private bool playerOnPlatform = false;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class puente_roto : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerOnPlatform = true;
+            //playerOnPlatform = true;
             ModifyBreakForce(newBreakForce);
         }
     }
@@ -29,7 +29,7 @@ public class puente_roto : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerOnPlatform = false;
+            //playerOnPlatform = false;
             ModifyBreakForce(defaultBreakForce);
         }
     }

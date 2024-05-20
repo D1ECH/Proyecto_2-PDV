@@ -10,7 +10,7 @@ public class Soga : MonoBehaviour
 
     private Rigidbody rb;
     private bool isSwinging;
-    private HingeJoint hingeJoint;
+    private new HingeJoint hingeJoint;
     private Rigidbody connectedRopeSegment;
 
     void Start()
