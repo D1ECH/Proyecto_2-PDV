@@ -1,0 +1,7 @@
+@relation experiencias
+
+@attribute Fx numeric
+@attribute Fy numeric
+@attribute Distancia numeric
+
+@data
