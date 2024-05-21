@@ -28,6 +28,10 @@ public class AprendizLento_2_incognitas : MonoBehaviour
     private NPCInteligenteBaloncesto npcInteligenteBaloncesto;
     bool entrenando = false;
 
+    public GameObject objetoAElevar;
+    public float alturaObjetivo = 10f;
+    public float velocidadElevacion = 2f;
+
     void Start()
     {
         npcInteligenteBaloncesto = GetComponent<NPCInteligenteBaloncesto>();
@@ -197,6 +201,27 @@ public class AprendizLento_2_incognitas : MonoBehaviour
                 r.isKinematic = true;
                 ESTADO = "FIN";
             }
+
+            
+        }
+
+        if(ESTADO == "FIN")
+        {
+            ElevarObjeto(objetoAElevar, alturaObjetivo, velocidadElevacion);
         }
     }
+
+    private void ElevarObjeto(GameObject obj, float alturaObjetivo, float velocidad)
+    {
+        if (obj != null)
+        {
+            Vector3 posActual = obj.transform.position;
+            if (posActual.y < alturaObjetivo)
+            {
+                float nuevaAltura = Mathf.MoveTowards(posActual.y, alturaObjetivo, velocidad * Time.deltaTime);
+                obj.transform.position = new Vector3(posActual.x, nuevaAltura, posActual.z);
+            }
+        }
+    }
+
 }
