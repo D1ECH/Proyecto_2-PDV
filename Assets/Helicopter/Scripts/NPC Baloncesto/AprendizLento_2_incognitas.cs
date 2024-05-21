@@ -118,16 +118,16 @@ public class AprendizLento_2_incognitas : MonoBehaviour
         {
             casosEntrenamiento.setClassIndex(0);
             Evaluation evaluador = new Evaluation(casosEntrenamiento);                   //...Opcional: si tien mas de 10 ejemplo, estima la posible precisión
-            evaluador.crossValidateModel(saberPredecirFuerzaX, casosEntrenamiento, 10, new java.util.Random(1));
+            evaluador.crossValidateModel(saberPredecirFuerzaX, casosEntrenamiento, 20, new java.util.Random(1));
             print("El Error Absoluto Promedio con Fx durante el entrenamiento fue de " + evaluador.meanAbsoluteError().ToString("0.000000") + " N");
             casosEntrenamiento.setClassIndex(2);
-            evaluador.crossValidateModel(saberPredecirDistancia, casosEntrenamiento, 10, new java.util.Random(1));
+            evaluador.crossValidateModel(saberPredecirDistancia, casosEntrenamiento, 20, new java.util.Random(1));
             print("El Error Absoluto Promedio con Distancias durante el entrenamiento fue de " + evaluador.meanAbsoluteError().ToString("0.000000") + " m");
         }
 
         //Estimación de la distancia a la Canasta
-        distanciaObjetivo = (this.transform.position.x - PuntoObjetivo.transform.position.x);
-
+        // distanciaObjetivo = (this.transform.position.x - PuntoObjetivo.transform.position.x);
+        distanciaObjetivo = 1.0f;
         PuntoObjetivo.GetComponent<Collider>().isTrigger = true;
 
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,9 +181,9 @@ public class AprendizLento_2_incognitas : MonoBehaviour
             }
             else
             {
-                InstanciaPelota = Instantiate(pelota) as GameObject;
+                InstanciaPelota = Instantiate(pelota, this.transform.position, this.transform.rotation);
                 r = InstanciaPelota.GetComponent<Rigidbody>();                                                        //EN EL JUEGO: utiliza la pelota física del juego (si no existe la crea)
-                r.AddForce(new Vector3(mejorFuerzaX, mejorFuerzaY, 0), ForceMode.Impulse);                            //la lanza en el videojuego con la fuerza encontrada
+                r.AddForce(new Vector3(-mejorFuerzaX, mejorFuerzaY, 0), ForceMode.Impulse);                            //la lanza en el videojuego con la fuerza encontrada
                 print("DECISION REALIZADA: Se lanzó pelota con fuerza Fx =" + mejorFuerzaX + " y Fy= " + mejorFuerzaY);
                 ESTADO = "Acción realizada";
             }
